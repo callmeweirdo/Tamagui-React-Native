@@ -4,22 +4,32 @@ import Drawer from "expo-router/drawer";
 
 const Layout = () => {
     return (
-        <Drawer screenOptions={{ 
-            headerShown: true,
-            drawerHideStatusBarOnOpen: true,
-            drawerActiveBackgroundColor: colorTokens.dark.yellow.yellow10
-            
-             }} >
+        <Drawer
+            screenOptions={{
+                headerShown: true,
+                drawerHideStatusBarOnOpen: true,
+                drawerActiveBackgroundColor: colorTokens.dark.yellow.yellow10
+            }}
+        >
             <Drawer.Screen
                 name="(home)"
                 options={{
-                title: 'Movies App',
-                headerShown: false,
-                drawerIcon: ({color, size}) => <Ionicons name="ios-home" size={size} color={color} />
+                    title: 'Movies App',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="ios-home" size={size} color={color} />
+                    )
                 }}
             />
-                <Drawer.Screen name="(favourites)" options={{  }} />
-            </Drawer>
+            <Drawer.Screen
+                name="(favorites)"
+                options={{
+                    title: 'Fav Movies',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="checkmark-circle" size={size} color={color} />
+                    )
+                }}
+            />
+        </Drawer>
     );
 }
 
