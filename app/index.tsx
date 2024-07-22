@@ -1,12 +1,11 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-import { Stack } from 'expo-router';
+import { Redirect } from 'expo-router';
 
 const Page = () => {
-    return (
-        <Text>index</Text>
-        // <Stack></Stack>
-    );
+  return (
+    <Redirect href="/(drawer)/home" />
+  );
 }
 
 export default Page;
