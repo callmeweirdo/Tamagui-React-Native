@@ -1,6 +1,6 @@
 // app/(drawer)/home/index.tsx
 import { Link } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Card, Main, Input } from 'tamagui';
 import { Container, Subtitle, Title } from '~/tamagui.config';
 import { useQuery } from '@tanstack/react-query';
@@ -9,6 +9,8 @@ import { ImageBackground } from 'react-native';
 import { YStack } from 'tamagui';
 
 export default function HomeScreen() {
+    const [searchResult, setSearchResult] = useState('');
+
 
   const trendingQuery = useQuery({
     queryKey: ['trending'],
@@ -24,11 +26,19 @@ export default function HomeScreen() {
 
         <Container>
           <YStack>
-            <Title style={{ color: '#fff' }} enterStyle={{ opacity: 0, scale: 1.5, y: -10 }} animation="bouncy">Trending</Title>
-            <Input />
+            <Title style={{ color: '#fff', display: 'flex', justifyContent: 'center', alignItems: 'center' }} enterStyle={{ opacity: 0, scale: 1.5, y: -10 }} animation="bouncy">Trending</Title>
+            <Input
+              placeholder='Search for a movie, tv show, person...'
+              borderWidth={1}
+              size={'$3'}
+              value={searchResult}
+              onChange={(text) => setSearchResult(text)}
+            />
           </YStack>
         </Container>
       </ImageBackground>
+
+      <Subtitle>Trending</Subtitle>
     </Main>
   );
 }

@@ -7,18 +7,19 @@ import { useTheme } from 'tamagui';
 
 export default function HomeLayout() {
     const theme = useTheme();
+
   return (
       <Stack screenOptions={{
           headerShown: false,
           headerStyle: {
               backgroundColor: theme.yellow10.get(),
-              headerTintColor: `#fff`
+              headerTintColor: `yellow`
           }
       }}>
           <Stack.Screen name='index' options={{ 
               title: 'Movies Star',
           }} />
-          
+
           <Stack.Screen
               name='movie/[id]'
               options={{ 
