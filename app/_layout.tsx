@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { TamaguiProvider, Theme } from 'tamagui';
 import config from '../tamagui.config';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { queryClient } from '~/queryClient';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 export default function Layout() {
   const [loaded] = useFonts({
@@ -23,9 +25,11 @@ export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <TamaguiProvider config={config}>
-        <Theme name="yellow">
-          <Slot />
-        </Theme>
+          <QueryClientProvider client={queryClient} >
+            <Theme name="yellow">
+              <Slot />
+            </Theme>
+          </QueryClientProvider>
       </TamaguiProvider>
     </GestureHandlerRootView>
   );

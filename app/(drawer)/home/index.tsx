@@ -1,22 +1,25 @@
 // app/(drawer)/home/index.tsx
 import { Link } from 'expo-router';
 import React from 'react';
-import { View, Text, Card } from 'tamagui';
+import { View, Text, Card, Main } from 'tamagui';
 import { Subtitle, Title } from '~/tamagui.config';
+import { useQuery } from '@tanstack/react-query';
+import { getTrending } from '~/services/api';
+import { ImageBackground } from 'react-native';
 
 export default function HomeScreen() {
+
+  const trendingQuery = useQuery({
+    queryKey: ['trending'],
+    queryFn: getTrending,
+  });
+
   return (
-    <View>
-      <Subtitle>Home Movies</Subtitle>
-      <Link href={'/(drawer)/home/movie/[id]'} asChild>
-        <Text>go to movie</Text>
-      </Link>
-      <Card>
-        <Card.Header />
-        <Card.Footer />
-        {/* any other components */}
-        <Card.Background />
-      </Card>
-    </View>
+    <Main>
+      <ImageBackground
+        source={{ uri: `https://image.tmdb.org/t/p/w1920_and_h600_multi_faces_filter(duotone,032541,01b4e4)/ghQrKrcEpAlkzBuNoOCSxHQXWqw.jpg` }}
+        style={{ width: '100%', height: 200 }}
+      />
+    </Main>
   );
 }
