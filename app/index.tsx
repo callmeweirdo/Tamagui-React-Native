@@ -4,7 +4,7 @@ import { Redirect } from 'expo-router';
 
 const Page = () => {
   return (
-    <Redirect href="/(drawer)/home" />
+    <Redirect href={"/(drawer)/home"} />
   );
 }
 

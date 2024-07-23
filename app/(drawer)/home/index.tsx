@@ -1,9 +1,22 @@
-import { View, Text } from 'react-native';
+// app/(drawer)/home/index.tsx
+import { Link } from 'expo-router';
+import React from 'react';
+import { View, Text, Card } from 'tamagui';
+import { Subtitle, Title } from '~/tamagui.config';
 
-const Page = () => {
+export default function HomeScreen() {
   return (
-    <Text>asdfghj</Text>
+    <View>
+      <Subtitle>Home Movies</Subtitle>
+      <Link href={'/(drawer)/home/movie/[id]'} asChild>
+        <Text>go to movie</Text>
+      </Link>
+      <Card>
+        <Card.Header />
+        <Card.Footer />
+        {/* any other components */}
+        <Card.Background />
+      </Card>
+    </View>
   );
 }
-
-export default Page;

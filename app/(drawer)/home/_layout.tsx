@@ -1,17 +1,30 @@
-// import { View, Text } from 'react-native';
-import { Stack } from 'expo-router';
+// app/(drawer)/home/_layout.tsx
+import { DrawerToggleButton } from '@react-navigation/drawer';
 import { colorTokens } from '@tamagui/themes';
+import { Stack } from 'expo-router';
+import { useTheme } from 'tamagui';
 
-const Layout = () => {
-    return (
-        <Stack screenOptions={{ 
-            headerStyle: {
-                backgroundColor: colorTokens.dark.yellow.yellow10
-            },
-         }} >
 
-        </Stack>
-    );
+export default function HomeLayout() {
+    const theme = useTheme();
+  return (
+      <Stack screenOptions={{
+          headerShown: false,
+          headerStyle: {
+              backgroundColor: theme.yellow10.get(),
+              headerTintColor: `#fff`
+          }
+      }}>
+          <Stack.Screen name='index' options={{ 
+              title: 'Movies Star',
+          }} />
+          
+          <Stack.Screen
+              name='movie/[id]'
+              options={{ 
+                  title: ''
+               }}
+          />
+    </Stack>
+  );
 }
-
-export default Layout;
