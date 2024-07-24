@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getSearchResults, getTrending } from '~/services/api';
 import { ImageBackground } from 'react-native';
 import useDebounce from '~/utils/useDebounce';
+import MovieCard from '~/components/MovieCard';
 
 export default function HomeScreen() {
   const [searchResult, setSearchResult] = useState('');
@@ -51,11 +52,20 @@ export default function HomeScreen() {
 
       {(!trendingQuery.isLoading || searchQuery.isLoading) && <Spinner py={14} color={'$background'} size='large' /> }
 
-      <ScrollView>
-        <YStack p={15} >
-          <Text>Movies...</Text>
-        </YStack>
-      </ScrollView>
+      {
+
+        trendingQuery.data?.results.map((item) => {
+          return (
+          
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+              <YStack p={15} >
+                <MovieCard key={item.id} movie={item} />
+              </YStack>
+            </ScrollView>
+        )
+      })
+      }
+      
 
     </Main>
   );

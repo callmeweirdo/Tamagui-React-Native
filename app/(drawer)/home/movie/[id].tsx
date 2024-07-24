@@ -8,7 +8,7 @@ const Page = () => {
     console.log("id", movie);
   return (
     <View>
-      <Text>[id] </Text>
+          <Text>{ movie.id}</Text>
     </View>
   )
 }
