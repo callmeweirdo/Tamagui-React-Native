@@ -1,20 +1,29 @@
 // app/(drawer)/home/index.tsx
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, Card, Main, Input } from 'tamagui';
+import { View, Text, Card, Main, Input, Spinner, YStack, useTheme, ScrollView } from 'tamagui';
 import { Container, Subtitle, Title } from '~/tamagui.config';
 import { useQuery } from '@tanstack/react-query';
-import { getTrending } from '~/services/api';
+import { getSearchResults, getTrending } from '~/services/api';
 import { ImageBackground } from 'react-native';
-import { YStack } from 'tamagui';
+import useDebounce from '~/utils/useDebounce';
 
 export default function HomeScreen() {
-    const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState('');
+  const debouncedString = useDebounce(searchResult, 300);
+
+  const theme = useTheme();
 
 
   const trendingQuery = useQuery({
     queryKey: ['trending'],
     queryFn: getTrending,
+  });
+
+  const searchQuery = useQuery({
+    queryKey: ['search'],
+    queryFn: () => getSearchResults(debouncedString),
+    enabled: debouncedString.length > 0,
   });
 
   return (
@@ -32,13 +41,22 @@ export default function HomeScreen() {
               borderWidth={1}
               size={'$3'}
               value={searchResult}
-              onChange={(text) => setSearchResult(text)}
+              onChangeText={(text) => setSearchResult(text)}
             />
           </YStack>
         </Container>
       </ImageBackground>
 
-      <Subtitle>Trending</Subtitle>
+      <Subtitle p={10}>Trending</Subtitle>
+
+      {(!trendingQuery.isLoading || searchQuery.isLoading) && <Spinner py={14} color={'$background'} size='large' /> }
+
+      <ScrollView>
+        <YStack p={15} >
+          <Text>Movies...</Text>
+        </YStack>
+      </ScrollView>
+
     </Main>
   );
 }
