@@ -1,7 +1,7 @@
 // app/(drawer)/home/index.tsx
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { View, Text, Card, Main, Input, Spinner, YStack, useTheme, ScrollView } from 'tamagui';
+import { View, Text, Card, Main, Input, Spinner, YStack, useTheme, ScrollView, XStack } from 'tamagui';
 import { Container, Subtitle, Title } from '~/tamagui.config';
 import { useQuery } from '@tanstack/react-query';
 import { getSearchResults, getTrending } from '~/services/api';
@@ -50,21 +50,23 @@ export default function HomeScreen() {
 
       <Subtitle p={10}>Trending</Subtitle>
 
-      {(!trendingQuery.isLoading || searchQuery.isLoading) && <Spinner py={14} color={'$background'} size='large' /> }
+      {(trendingQuery.isLoading || searchQuery.isLoading) && <Spinner py={14} color={'$background'} size='large' /> }
 
-      {
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} py={20} contentContainerStyle={{ gap: 10, paddingLeft: 10 }} >
+        {/* <XStack p={15} m={2} > */}
 
-        trendingQuery.data?.results.map((item) => {
-          return (
+          {
+
+            trendingQuery.data?.results.map((item) => {
+              return (
+                <MovieCard  key={item.id} movie={item} />
+              )
+            })
+          }
+
+        {/* </XStack> */}
+      </ScrollView>
           
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} >
-              <YStack p={15} >
-                <MovieCard key={item.id} movie={item} />
-              </YStack>
-            </ScrollView>
-        )
-      })
-      }
       
 
     </Main>
