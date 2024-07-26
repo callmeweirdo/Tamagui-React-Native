@@ -12,6 +12,7 @@ export default function DrawerLayout() {
         drawerActiveBackgroundColor: colorTokens.dark.yellow.yellow10,
         drawerActiveTintColor: "#fff",
         drawerLabelStyle: { marginLeft: -20 }
+        
       }}
     >
       <Drawer.Screen
@@ -20,7 +21,7 @@ export default function DrawerLayout() {
           title: 'Movies App',
           drawerIcon: ({ color, size }) => (
             <Entypo name="home" size={24} color="black" />
-          )
+          ),
         }}
       />
       <Drawer.Screen

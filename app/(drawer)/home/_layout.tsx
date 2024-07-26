@@ -18,12 +18,16 @@ export default function HomeLayout() {
       }}>
           <Stack.Screen name='index' options={{ 
               title: 'Movies Star',
+              //   headerBackVisible: true
+                  headerBackTitle: 'Back',
           }} />
 
           <Stack.Screen
               name='movie/[id]'
               options={{ 
-                  title: ''
+                  title: 'Movie',
+                  headerBackTitle: 'Back',
+            //   headerBackTitleVisible: true
                }}
           />
     </Stack>
