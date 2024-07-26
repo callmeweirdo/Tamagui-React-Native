@@ -1,38 +1,38 @@
-// app/(drawer)/_layout.tsx
-import { Drawer } from 'expo-router/drawer';
-import { colorTokens } from "@tamagui/themes";
-import { Entypo, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import { colorTokens } from '@tamagui/themes';
+import Drawer from 'expo-router/drawer';
 
-export default function DrawerLayout() {
+const Layout = () => {
   return (
     <Drawer
       screenOptions={{
-        // headerShown: true, // Disable default header for drawer
+        headerShown: true,
         drawerHideStatusBarOnOpen: true,
-        drawerActiveBackgroundColor: colorTokens.dark.yellow.yellow10,
-        drawerActiveTintColor: "#fff",
-        drawerLabelStyle: { marginLeft: -20 }
-        
-      }}
-    >
+        drawerActiveBackgroundColor: colorTokens.dark.blue.blue7,
+        drawerActiveTintColor: '#fff',
+        drawerLabelStyle: { marginLeft: -20 },
+      }}>
       <Drawer.Screen
         name="home"
         options={{
-          title: 'Movies App',
-          drawerIcon: ({ color, size }) => (
-            <Entypo name="home" size={24} color="black" />
-          ),
+          title: 'Moviestar',
+          headerShown: false,
+          drawerIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
         }}
       />
+
       <Drawer.Screen
         name="favorites"
         options={{
-          title: 'Fav Movies',
+          title: 'My Favorites',
+          headerShown: false,
           drawerIcon: ({ color, size }) => (
-            <MaterialIcons name="favorite" size={24} color="black" />
-          )
+            <Ionicons name="star-outline" size={size} color={color} />
+          ),
         }}
       />
     </Drawer>
   );
-}
+};
+
+export default Layout;

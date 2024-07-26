@@ -10,7 +10,7 @@ export default function HomeLayout() {
 
   return (
       <Stack screenOptions={{
-          headerShown: false,
+          headerShown: true,
           headerStyle: {
               backgroundColor: theme.yellow10.get(),
               headerTintColor: `yellow`
@@ -18,8 +18,8 @@ export default function HomeLayout() {
       }}>
           <Stack.Screen name='index' options={{ 
               title: 'Movies Star',
-              //   headerBackVisible: true
-                  headerBackTitle: 'Back',
+              //   headerBackTitle: 'Back',
+              headerLeft: () => <DrawerToggleButton tintColor='#fff' />
           }} />
 
           <Stack.Screen
@@ -27,7 +27,14 @@ export default function HomeLayout() {
               options={{ 
                   title: 'Movie',
                   headerBackTitle: 'Back',
-            //   headerBackTitleVisible: true
+               }}
+          />
+
+          <Stack.Screen
+              name='tv/[id]'
+              options={{ 
+                  title: 'TV',
+                  headerBackTitle: 'Back',
                }}
           />
     </Stack>

@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text } from 'tamagui'
 import { MediaType } from '~/interfaces/moviesinterfaces';
 
 type detailsPageProps = {
@@ -15,4 +15,4 @@ const DetailsPage = ({id, mediaType}: detailsPageProps) => {
   )
 }
 
-export default DetailsPage
+export default DetailsPage;
