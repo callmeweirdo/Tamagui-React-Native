@@ -4,6 +4,9 @@ import { colorTokens } from '@tamagui/themes';
 import { Stack } from 'expo-router';
 import { useTheme } from 'tamagui';
 
+export const unstable_settings = {
+    initialRouteName: 'index'
+}
 
 export default function HomeLayout() {
     const theme = useTheme();
