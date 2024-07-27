@@ -5,6 +5,7 @@ import { getMoviesDetails } from '~/services/api';
 import { Main } from '~/tamagui.config';
 import { ImageBackground } from 'react-native';
 import { H2 } from 'tamagui';
+import Animated from 'react-native-reanimated';
 
 type detailsPageProps = {
     id: string,
@@ -17,33 +18,43 @@ const DetailsPage = ({ id, mediaType }: detailsPageProps) => {
     queryFn: () => getMoviesDetails(id, mediaType),
   });
   return (
-    <Main>
+    <View  >
       <ScrollView>
         <ImageBackground
           source={{
             uri: `https://image.tmdb.org/t/p/w400${movieQuery.data?.backdrop_path}` 
           }}
         >
-          <Image
+          <Animated.Image
             source={{
               uri: `https://image.tmdb.org/t/p/w400${movieQuery.data?.poster_path}`
             }}
-            w={200}
-            h={300}
+            style={{ width: 250, height: 300, margin: 20 }}
             borderRadius={5}
-              m={20}
           />
         </ImageBackground>
 
-        <YStack>
+        <YStack
+          animation={'lazy'}
+          enterStyle={{ 
+            opacity: 0,
+            y: 10
+          }}
+          mt={20}
+          p={20}
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
           <H2 color={'$yellow3'} >{movieQuery.data?.title || movieQuery.data?.name}
+            <span>
             <Text fontSize={16} >(OGDevs 2024)</Text>
+            </span>
           </H2>
-          <Paragraph>{ movieQuery.data?.tagline}</Paragraph>
+          <Paragraph  >{movieQuery.data?.tagline}</Paragraph>
+          <Text fontSize={16} >{ movieQuery.data?.overview}</Text>
         </YStack>
 
       </ScrollView>
-    </Main>
+    </View>
   )
 }
 
