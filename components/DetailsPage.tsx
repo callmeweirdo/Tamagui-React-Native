@@ -1,11 +1,14 @@
-import { View, Text, ScrollView, Image, YStack, H1, Paragraph } from 'tamagui'
-import { MediaType } from '~/interfaces/moviesinterfaces';
+import { View, Text, ScrollView, Image, YStack, H1, Paragraph, Button, useTheme } from 'tamagui'
+import { Favorite, MediaType } from '~/interfaces/moviesinterfaces';
 import { useQuery } from '@tanstack/react-query';
 import { getMoviesDetails } from '~/services/api';
 import { Main } from '~/tamagui.config';
 import { ImageBackground } from 'react-native';
 import { H2 } from 'tamagui';
 import Animated from 'react-native-reanimated';
+import { useMMKVBoolean, useMMKVObject } from 'react-native-mmkv';
+import { Stack } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 type detailsPageProps = {
     id: string,
@@ -13,12 +16,48 @@ type detailsPageProps = {
 }
 
 const DetailsPage = ({ id, mediaType }: detailsPageProps) => {
+
+  const [isFavorite, setIsFavorite] = useMMKVBoolean(`${mediaType}-${id}`);
+  const [favorite, setFavorite] = useMMKVObject<Favorite[]>('favorites');
+
+  const theme = useTheme();
+
   const movieQuery = useQuery({
     queryKey: ['movie', id],
     queryFn: () => getMoviesDetails(id, mediaType),
   });
+
+  const toggleFavorite = () => {
+    const current = favorite || [];
+
+    if (!isFavorite) {
+      setFavorite([
+        ...current,
+        {
+          id,
+          mediaType,
+          thumb: movieQuery.data?.poster_path,
+          name: movieQuery.data?.title || movieQuery.data?.name
+        }
+      ]);
+    } else {
+      setFavorite(current.filter((fav) => fav.id !== id || fav.mediaType !== mediaType));
+    }
+
+    setIsFavorite(!isFavorite);
+    
+  }
+
   return (
-    <View  >
+    <View>
+      <Stack.Screen options={{ 
+        headerRight: () => (
+          <Button onPress={toggleFavorite} >
+            <Ionicons name={isFavorite ? 'heart' : 'heart-outline'} size={26} color={theme.yellow10.get()} />
+          </Button>
+        )
+       }}>
+      </Stack.Screen>
       <ScrollView>
         <ImageBackground
           source={{
