@@ -21,7 +21,7 @@ export const getSearchResults = async (query: string): Promise<TrendingResult> =
 
 }
 
-export const getMoviesDetails = async (): Promise<any> => {
+export const getMoviesDetails = async (id: string, type: string): Promise<any> => {
     const response = await fetch(`https://api.themoviedb.org/3/${type}/${id}?language=en-US&api_key=${API_KEY}`);
     const data = response.json();
     return data;
