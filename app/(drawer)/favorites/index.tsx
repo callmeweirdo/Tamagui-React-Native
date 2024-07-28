@@ -21,7 +21,9 @@ export default function HomeScreen() {
   return (
     <View>
       <Container>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={true} >
+          <YStack $sm={{ flexDirection: 'column' }} paddingHorizontal="$1" space
+          >
           {
             favorites?.map((fav) => (
               <Link key={fav.id} href={`/(drawer)/favorites/${fav.mediaType}/${fav.id}`} asChild>
@@ -34,7 +36,7 @@ export default function HomeScreen() {
                     <Animated.Image
                       source={{ uri: `https://image.tmdb.org/t/p/w500${fav.thumb}` }}
                       style={{ width: 150, height: 150, borderRadius: '10px' }}
-                    
+
                     ></Animated.Image>
                   )}>
 
@@ -42,6 +44,7 @@ export default function HomeScreen() {
               </Link>
             ))
           }
+          </YStack>
         </ScrollView>
       </Container>
     </View>
